@@ -22,44 +22,68 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
-  //State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
+}
 
-  //class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> {
+  Color color = Colors.yellow;
+  void changeColor() {
+    setState(() {
+      color = Colors.green;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orange.shade600,
-        title: Text("Welcome toa Your Aquarium"),
-      ),
-      body: Container(
-        color: Colors.blueAccent.shade700,
-        height: 500,
-        width: double.infinity,
-        margin: const EdgeInsets.all(20),
-        padding: const EdgeInsets.all(30),
-        //decoration: BoxDecoration(
-        //border: Border.all(color: Colors.black, width: 3),
-        //),
-        child: const Text("Hello! i am inside a container!",
-            style: TextStyle(fontSize: 20)),
-      ),
-    );
+        appBar: AppBar(
+          backgroundColor: Colors.orange.shade600,
+          title: Text("Welcome to Your Aquarium"),
+        ),
+        body: Column(
+          children: [
+            Container(
+              color: Colors.blueAccent.shade700,
+              height: 500,
+              width: double.infinity,
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(30),
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                height: 60.0,
+                width: 60.0,
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    color,
+                    BlendMode.modulate,
+                  ),
+                  child: const Image(
+                    image: AssetImage('assets/fish1.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomLeft,
+              child: ElevatedButton(
+                onPressed: changeColor,
+                child: Text("Change Color"),
+              ),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text("Add fish"),
+              ),
+            ),
+          ],
+        ));
   }
 }
