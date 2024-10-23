@@ -31,6 +31,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> items = ['Green', 'Yellow', 'Red', 'Blue'];
+  String? selectedItem = 'Green';
   Color color = Colors.yellow;
   void changeColor() {
     setState(() {
@@ -46,10 +48,11 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text("Welcome to Your Aquarium"),
         ),
         body: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               color: Colors.blueAccent.shade700,
-              height: 500,
+              height: 400,
               width: double.infinity,
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.all(30),
@@ -70,12 +73,24 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.topCenter,
               child: ElevatedButton(
                 onPressed: changeColor,
                 child: Text("Change Color"),
               ),
             ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: DropdownButton(
+                value: selectedItem,
+                items: items
+                    .map((item) =>
+                        DropdownMenuItem(value: item, child: Text(item)))
+                    .toList(),
+                onChanged: (item) => setState(() => selectedItem = item),
+              ),
+            ),
+            SizedBox(height: 15),
             Container(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
